@@ -1,0 +1,5 @@
+# ScalaCS
+
+ScalaCS (or SCalacS if you prefer) is a library of computer science data structures and algorithms implemented in the Scala programming language.
+
+This project aims to provide practical implementations of various data structures and algorithms across different areas of computer science. The goal is to offer a useful and understandable resource for Scala developers, without necessarily focusing on absolute peak performance or purely functional paradigms.
