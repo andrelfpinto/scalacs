@@ -1,57 +1,6 @@
 package scalacs.graph.mutable
 
-import scala.collection.mutable.Map as MMap
-
-class BreadthFirstSearchSuite extends munit.FunSuite {
-  /* format: off
-   *
-   *                1
-   *        ┌───────┴───────┐
-   *        ▼               ▼
-   *       11               12
-   *    ┌───┴───┐       ┌───┴───┐
-   *    ▼       ▼       ▼       ▼
-   *   21       22     23       24
-   *  ┌─┴─┐   ┌─┴─┐   ┌─┴─┐   ┌─┴─┐
-   *  ▼   ▼   ▼   ▼   ▼   ▼   ▼   ▼
-   * 31   32 33   34 35   36 37   38
-   * 
-   * format: on
-   */
-  val graph = MMap(
-    1  -> Iterable(11, 12),
-    11 -> Iterable(21, 22),
-    12 -> Iterable(23, 24),
-    21 -> Iterable(31, 32),
-    22 -> Iterable(33, 34),
-    23 -> Iterable(35, 36),
-    24 -> Iterable(37, 38)
-  )
-
-  val emptyGraph = MMap[Int, Iterable[Int]]()
-
-  /* format: off
-   * 
-   *                1
-   *        ┌───────┴───────┐
-   *        ▼               ▼
-   *       11               12
-   *    ┌───┴───┐       ┌───┴───┐
-   *    ▼       ▼       ▼       ▼
-   *   21──────►22     23──────►24
-   * 
-   * format: on
-   */
-  val graphWithCycle = MMap(
-    1  -> Iterable(11, 12),
-    11 -> Iterable(21, 22),
-    21 -> Iterable(22),
-    22 -> Iterable(11),
-    12 -> Iterable(23, 24),
-    23 -> Iterable(24),
-    24 -> Iterable(12)
-  )
-
+class BreadthFirstSearchSuite extends munit.FunSuite with GraphDefinitions {
   test("BFS should find a path to a reachable goal node") {
     val expected = Some(List(1, 11, 21, 31))
     val obtained = BreadthFirstSearch(graph, 1, n => n == 31)
@@ -105,8 +54,8 @@ class BreadthFirstSearchSuite extends munit.FunSuite {
   }
 
   test("BFS should find a path to a reachable node in a graph with cycles") {
-    val expected = Some(List(1, 12, 24))
-    val obtained = BreadthFirstSearch(graphWithCycle, 1, n => n == 24)
+    val expected = Some(List(1, 12, 23))
+    val obtained = BreadthFirstSearch(graphWithCycle, 1, n => n == 23)
     assertEquals(obtained, expected)
   }
 
