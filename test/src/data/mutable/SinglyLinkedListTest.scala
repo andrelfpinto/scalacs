@@ -1,6 +1,17 @@
 package scalacs.data.mutable
 
 class SinglyLinkedListSuite extends munit.FunSuite {
+  test("isEmpty should return true for an empty list") {
+    val list = new SinglyLinkedList[Int]()
+    assert(list.isEmpty)
+  }
+
+  test("isEmpty should return false for a non-empty list") {
+    val list = new SinglyLinkedList[String]()
+    list.insertHead("hello")
+    assert(!list.isEmpty)
+  }
+
   test("insertHead should add a new element to the beginning of the list") {
     val list = new SinglyLinkedList[Int]()
     list.insertHead(1)

@@ -3,6 +3,20 @@ package scalacs.data.mutable
 import munit.FunSuite
 
 class DoublyLinkedListSuite extends FunSuite {
+  test("isEmpty should return true for an empty list") {
+    val list = new DoublyLinkedList[Int]()
+    assert(list.isEmpty)
+  }
+
+  test("isEmpty should return false for a non-empty list") {
+    val list = new DoublyLinkedList[String]()
+    list.insertHead("hello")
+    assert(!list.isEmpty)
+
+    list.extractHead()
+    list.insertLast("world")
+    assert(!list.isEmpty)
+  }
 
   test("insertHead should add a new element to the beginning of the list") {
     val list = new DoublyLinkedList[Int]()

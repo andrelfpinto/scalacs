@@ -34,6 +34,15 @@ class DoublyLinkedList[T] {
     */
   var last: Node[T] = null
 
+  /** Checks if the doubly linked list is empty.
+    *
+    * @return
+    *   `true` if the list is empty (head is null, which also implies last is null), `false`
+    *   otherwise.
+    */
+  def isEmpty: Boolean =
+    head == null
+
   /** Inserts a new node with the given data at the beginning (head) of the list. Updates both the
     * `next` pointer of the new node and the `prev` pointer of the former head. If the list is
     * empty, the new node becomes both the head and the last node.
@@ -43,7 +52,7 @@ class DoublyLinkedList[T] {
     */
   def insertHead(newData: T): Unit = {
     val newNode = Node(newData)
-    if (head == null) {
+    if (isEmpty) {
       head = newNode
       last = newNode
     } else {
@@ -62,7 +71,7 @@ class DoublyLinkedList[T] {
     */
   def insertLast(newData: T): Unit = {
     val newNode = Node(newData)
-    if (last == null) {
+    if (isEmpty) {
       head = newNode
       last = newNode
     } else {
@@ -81,7 +90,7 @@ class DoublyLinkedList[T] {
     *   The data of the former head.
     */
   def extractHead(): T =
-    if (head == null)
+    if (isEmpty)
       throw new NoSuchElementException("Cannot extract head from an empty list")
     else {
       val data = head.data
@@ -102,7 +111,7 @@ class DoublyLinkedList[T] {
     *   The data of the former last node.
     */
   def extractLast(): T =
-    if (last == null)
+    if (isEmpty)
       throw new NoSuchElementException("Cannot extract last from an empty list")
     else {
       val data = last.data
