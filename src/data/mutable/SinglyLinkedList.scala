@@ -28,6 +28,14 @@ class SinglyLinkedList[T] {
     */
   var head: Node[T] = null
 
+  /** Checks if the linked list is empty.
+    *
+    * @return
+    *   `true` if the list is empty (head is null), `false` otherwise.
+    */
+  def isEmpty: Boolean =
+    head == null
+
   /** Inserts a new node with the given data at the beginning (head) of the list.
     *
     * @param newData
@@ -47,7 +55,7 @@ class SinglyLinkedList[T] {
     *   The data of the former head.
     */
   def extractHead(): T =
-    if (head == null)
+    if (isEmpty)
       throw new NoSuchElementException("Cannot extract head from an empty list")
     else {
       val data = head.data
