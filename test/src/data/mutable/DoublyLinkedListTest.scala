@@ -164,7 +164,7 @@ class DoublyLinkedListSuite extends FunSuite {
   }
 
   test("foreachRight should do nothing on an empty list") {
-    val list = new DoublyLinkedList[Int]()
+    val list  = new DoublyLinkedList[Int]()
     var count = 0
     list.foreachRight(_ => count += 1)
     assertEquals(count, 0)
@@ -191,7 +191,7 @@ class DoublyLinkedListSuite extends FunSuite {
   }
 
   test("foreachLeft should do nothing on an empty list") {
-    val list = new DoublyLinkedList[Int]()
+    val list  = new DoublyLinkedList[Int]()
     var count = 0
     list.foreachLeft(_ => count += 1)
     assertEquals(count, 0)
