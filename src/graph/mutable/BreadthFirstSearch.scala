@@ -2,8 +2,8 @@ package scalacs.graph.mutable
 
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.Map as MMap
-import scala.collection.mutable.Queue
 import scala.collection.mutable.Set
+import scalacs.data.mutable.Queue
 
 object BreadthFirstSearch {
 
@@ -37,7 +37,7 @@ object BreadthFirstSearch {
     explored.add(root)
     queue.enqueue(root)
 
-    while (queue.nonEmpty) {
+    while (!queue.isEmpty) {
       val current = queue.dequeue()
 
       if (goal(current))
