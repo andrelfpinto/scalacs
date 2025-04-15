@@ -2,8 +2,8 @@ package scalacs.graph.mutable
 
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.Map as MMap
-import scala.collection.mutable.Stack
 import scala.collection.mutable.Set
+import scalacs.data.mutable.Stack
 
 object DepthFirstSearch {
 
@@ -36,7 +36,7 @@ object DepthFirstSearch {
 
     stack.push(root)
 
-    while (stack.nonEmpty) {
+    while (!stack.isEmpty) {
       val current = stack.pop()
 
       if (goal(current))
