@@ -79,4 +79,25 @@ class SinglyLinkedListSuite extends munit.FunSuite {
     list.foreach(_ => count += 1)
     assertEquals(count, 0)
   }
+
+  test("find should return Some(element) if found") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    assertEquals(list.find(_ < 3), Some(1))
+  }
+
+  test("find should return None if not found") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    assertEquals(list.find(_ > 3), None)
+  }
+
+  test("find should return None for an empty list") {
+    val list = new SinglyLinkedList[Int]()
+    assertEquals(list.find(_ => true), None)
+  }
 }
