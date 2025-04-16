@@ -1,6 +1,6 @@
 package scalacs.data.mutable
 
-import ops.HasForeach
+import ops.{HasForeach, HasFind}
 
 /** Companion object for the SinglyLinkedList, containing the Node definition.
   */
@@ -27,6 +27,17 @@ object SinglyLinkedList {
             f(current.data)
             current = current.next
           }
+
+    /** Provides a `find` extension method for `SinglyLinkedList`. */
+    given HasFind[SinglyLinkedList] with
+      extension [T](list: SinglyLinkedList[T])
+        def find(p: T => Boolean): Option[T] =
+          var current = list.head
+          while (current != null) {
+            if (p(current.data)) return Some(current.data)
+            current = current.next
+          }
+          return None
 }
 
 /** A mutable singly linked list implementation.
