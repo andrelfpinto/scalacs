@@ -184,14 +184,14 @@ class DoublyLinkedListSuite extends munit.FunSuite {
     assertEquals(count, 0)
   }
 
-  test("foreachLeft should apply the given function to each element in reverse order") {
+  test("foreachBackwards should apply the given function to each element in reverse order") {
     val list = new DoublyLinkedList[Int]()
     list.insertLast(1)
     list.insertLast(2)
     list.insertLast(3)
 
     var sum = 0
-    list.foreachLeft(sum += _)
+    list.foreachBackwards(sum += _)
     assertEquals(sum, 6)
 
     val stringList = new DoublyLinkedList[String]()
@@ -200,14 +200,14 @@ class DoublyLinkedListSuite extends munit.FunSuite {
     stringList.insertLast("c")
 
     var resultString = ""
-    stringList.foreachLeft(resultString += _)
+    stringList.foreachBackwards(resultString += _)
     assertEquals(resultString, "cba")
   }
 
-  test("foreachLeft should do nothing on an empty list") {
+  test("foreachBackwards should do nothing on an empty list") {
     val list  = new DoublyLinkedList[Int]()
     var count = 0
-    list.foreachLeft(_ => count += 1)
+    list.foreachBackwards(_ => count += 1)
     assertEquals(count, 0)
   }
 }
