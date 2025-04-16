@@ -1,5 +1,7 @@
 package scalacs.data.mutable
 
+import ops.HasForeach
+
 /** Companion object for the SinglyLinkedList, containing the Node definition.
   */
 object SinglyLinkedList {
@@ -14,6 +16,17 @@ object SinglyLinkedList {
     *   A reference to the next node in the list, or null if this is the last node.
     */
   class Node[T](var data: T, var next: Node[T] = null)
+
+  object ops:
+    /** Provides a `foreach` extension method for `SinglyLinkedList`. */
+    given HasForeach[SinglyLinkedList]:
+      extension [T](list: SinglyLinkedList[T])
+        def foreach(f: T => Unit): Unit =
+          var current = list.head
+          while (current != null) {
+            f(current.data)
+            current = current.next
+          }
 }
 
 /** A mutable singly linked list implementation.
@@ -62,17 +75,4 @@ class SinglyLinkedList[T] {
       head = head.next
       data
     }
-
-  /** Applies the given function `f` to each element in the linked list.
-    *
-    * @param f
-    *   The function to be applied to each element.
-    */
-  def foreach(f: T => Unit): Unit = {
-    var current = head
-    while (current != null) {
-      f(current.data)
-      current = current.next
-    }
-  }
 }
