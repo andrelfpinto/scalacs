@@ -29,7 +29,7 @@ object SinglyLinkedList {
           }
 
     /** Provides a `find` extension method for `SinglyLinkedList`. */
-    given HasFind[SinglyLinkedList] with
+    given HasFind[SinglyLinkedList]:
       extension [T](list: SinglyLinkedList[T])
         def find(p: T => Boolean): Option[T] =
           var current = list.head
