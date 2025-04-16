@@ -1,8 +1,8 @@
 package scalacs.data.mutable
 
-import munit.FunSuite
+import scalacs.data.mutable.DoublyLinkedList.ops.given
 
-class DoublyLinkedListSuite extends FunSuite {
+class DoublyLinkedListSuite extends munit.FunSuite {
   test("isEmpty should return true for an empty list") {
     val list = new DoublyLinkedList[Int]()
     assert(list.isEmpty)
@@ -157,14 +157,14 @@ class DoublyLinkedListSuite extends FunSuite {
     assertEquals(list.last, null)
   }
 
-  test("foreachRight should apply the given function to each element") {
+  test("foreach should apply the given function to each element") {
     val list = new DoublyLinkedList[Int]()
     list.insertHead(1)
     list.insertHead(2)
     list.insertHead(3)
 
     var sum = 0
-    list.foreachRight(sum += _)
+    list.foreach(sum += _)
     assertEquals(sum, 6)
 
     val stringList = new DoublyLinkedList[String]()
@@ -173,14 +173,14 @@ class DoublyLinkedListSuite extends FunSuite {
     stringList.insertHead("c")
 
     var result = ""
-    stringList.foreachRight(result += _)
+    stringList.foreach(result += _)
     assertEquals(result, "cba")
   }
 
-  test("foreachRight should do nothing on an empty list") {
+  test("foreach should do nothing on an empty list") {
     val list  = new DoublyLinkedList[Int]()
     var count = 0
-    list.foreachRight(_ => count += 1)
+    list.foreach(_ => count += 1)
     assertEquals(count, 0)
   }
 

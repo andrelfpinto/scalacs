@@ -1,5 +1,7 @@
 package scalacs.data.mutable
 
+import ops.HasForeach
+
 /** Companion object for the DoublyLinkedList, containing the Node definition.
   */
 object DoublyLinkedList {
@@ -16,6 +18,17 @@ object DoublyLinkedList {
     *   A reference to the next node in the list, or null if this is the last node.
     */
   class Node[T](var data: T, var prev: Node[T] = null, var next: Node[T] = null)
+
+  object ops:
+    /** Provides a `foreach` extension method for `DoublyLinkedList`. */
+    given HasForeach[DoublyLinkedList]:
+      extension [T](list: DoublyLinkedList[T])
+        def foreach(f: T => Unit): Unit =
+          var current = list.head
+          while (current != null) {
+            f(current.data)
+            current = current.next
+          }
 }
 
 /** A mutable doubly linked list implementation.
@@ -122,20 +135,6 @@ class DoublyLinkedList[T] {
         head = null // List is now empty
       data
     }
-
-  /** Applies the given function `f` to each element in the list, traversing from the head to the
-    * last node (rightward).
-    *
-    * @param f
-    *   The function to be applied to each element.
-    */
-  def foreachRight(f: T => Unit): Unit = {
-    var current = head
-    while (current != null) {
-      f(current.data)
-      current = current.next
-    }
-  }
 
   /** Applies the given function `f` to each element in the list, traversing from the last node to
     * the head (leftward).

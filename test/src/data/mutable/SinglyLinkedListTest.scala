@@ -1,5 +1,7 @@
 package scalacs.data.mutable
 
+import scalacs.data.mutable.SinglyLinkedList.ops.given
+
 class SinglyLinkedListSuite extends munit.FunSuite {
   test("isEmpty should return true for an empty list") {
     val list = new SinglyLinkedList[Int]()
