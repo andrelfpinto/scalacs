@@ -1,6 +1,6 @@
 package scalacs.data.mutable
 
-import ops.{HasForeach, HasFind, HasReverse}
+import ops.{HasForeach, HasFind, HasReverse, HasFilter}
 
 /** Companion object for the SinglyLinkedList, containing the Node definition.
   */
@@ -47,6 +47,16 @@ object SinglyLinkedList {
             reversedList.insertHead(element)
           }
           reversedList
+
+    given HasFilter[SinglyLinkedList]:
+      extension [T](list: SinglyLinkedList[T])
+        def filter(p: T => Boolean): SinglyLinkedList[T] =
+          val filteredList = new SinglyLinkedList[T]()
+          list.foreach { element =>
+            if (p(element))
+              filteredList.insertHead(element)
+          }
+          filteredList.reverse
 }
 
 /** A mutable singly linked list implementation.

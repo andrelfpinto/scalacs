@@ -118,4 +118,44 @@ class SinglyLinkedListSuite extends munit.FunSuite {
     assertEquals(reversed.extractHead(), 1)
     assert(reversed.isEmpty)
   }
+
+  test("filter should return an empty list for an empty linked list") {
+    val list = new SinglyLinkedList[Int]()
+    assert(list.filter(_ > 0).isEmpty)
+  }
+
+  test("filter should return a list of elements that satisfy the predicate") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(4)
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    val filteredList = list.filter(_ > 2)
+    assertEquals(filteredList.extractHead(), 3)
+    assertEquals(filteredList.extractHead(), 4)
+    assert(filteredList.isEmpty)
+  }
+
+  test("filter should return an empty list if no elements satisfy the predicate") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(4)
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    assert(list.filter(_ < 0).isEmpty)
+  }
+
+  test("filter should return all elements if the predicate always returns true") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(4)
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    val filteredList = list.filter(_ => true)
+    assertEquals(filteredList.extractHead(), 1)
+    assertEquals(filteredList.extractHead(), 2)
+    assertEquals(filteredList.extractHead(), 3)
+    assertEquals(filteredList.extractHead(), 4)
+    assert(filteredList.isEmpty)
+  }
 }
