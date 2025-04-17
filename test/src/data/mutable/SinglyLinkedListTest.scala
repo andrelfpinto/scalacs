@@ -100,4 +100,22 @@ class SinglyLinkedListSuite extends munit.FunSuite {
     val list = new SinglyLinkedList[Int]()
     assertEquals(list.find(_ => true), None)
   }
+
+  test("reverse should return an empty list for an empty list") {
+    val list     = new SinglyLinkedList[Int]()
+    val reversed = list.reverse
+    assert(reversed.isEmpty)
+  }
+
+  test("reverse should reverse the order of elements in the list") {
+    val list = new SinglyLinkedList[Int]()
+    list.insertHead(3)
+    list.insertHead(2)
+    list.insertHead(1)
+    val reversed = list.reverse
+    assertEquals(reversed.extractHead(), 3)
+    assertEquals(reversed.extractHead(), 2)
+    assertEquals(reversed.extractHead(), 1)
+    assert(reversed.isEmpty)
+  }
 }
