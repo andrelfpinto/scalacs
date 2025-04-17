@@ -1,6 +1,6 @@
 package scalacs.data.mutable
 
-import ops.{HasForeach, HasFind}
+import ops.{HasForeach, HasFind, HasReverse}
 
 /** Companion object for the SinglyLinkedList, containing the Node definition.
   */
@@ -38,6 +38,15 @@ object SinglyLinkedList {
             current = current.next
           }
           return None
+
+    given HasReverse[SinglyLinkedList]:
+      extension [T](list: SinglyLinkedList[T])
+        def reverse: SinglyLinkedList[T] =
+          val reversedList = new SinglyLinkedList[T]()
+          list.foreach { element =>
+            reversedList.insertHead(element)
+          }
+          reversedList
 }
 
 /** A mutable singly linked list implementation.
