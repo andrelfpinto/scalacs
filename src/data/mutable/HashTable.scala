@@ -72,6 +72,21 @@ class HashTable[K, V](initialCapacity: Int = 16) {
       }
   }
 
+  /** Optionally retrieves the value associated with a given key.
+    *
+    * @param key
+    *   The key to look up.
+    * @return
+    *   An `Option` containing the value if the key is found, `None` otherwise.
+    */
+  def get(key: K): Option[V] = {
+    val index = getIndex(key)
+    if (table(index) != null)
+      table(index).find(_._1 == key).map(_._2)
+    else
+      None
+  }
+
   /** Retrieves the value associated with a given key.
     *
     * @param key
@@ -81,14 +96,9 @@ class HashTable[K, V](initialCapacity: Int = 16) {
     * @throws NoSuchElementException
     *   If the key is not found in the hash table.
     */
-  def apply(key: K): V = {
-    val index = getIndex(key)
-    if (table(index) != null)
-      table(index).find(_._1 == key) match {
-        case Some(pair) => pair._2
-        case None       => throw new NoSuchElementException(s"Key not found: $key")
-      }
-    else
-      throw new NoSuchElementException(s"Key not found: $key")
-  }
+  def apply(key: K): V =
+    get(key) match {
+      case Some(v) => v
+      case None    => throw new NoSuchElementException(s"Key not found: $key")
+    }
 }
