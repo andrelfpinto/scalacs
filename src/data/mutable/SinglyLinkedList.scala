@@ -1,6 +1,6 @@
 package scalacs.data.mutable
 
-import ops.{HasForeach, HasFind, HasReverse, HasFilter}
+import ops.{HasForeach, HasFind, HasReverse, HasFilter, HasContains}
 
 /** Companion object for the SinglyLinkedList, containing the Node definition.
   */
@@ -57,6 +57,11 @@ object SinglyLinkedList {
               filteredList.insertHead(element)
           }
           filteredList.reverse
+
+    given HasContains[SinglyLinkedList]:
+      extension [T](list: SinglyLinkedList[T])
+        def contains(elem: T): Boolean =
+          list.find(_ == elem).isDefined
 }
 
 /** A mutable singly linked list implementation.

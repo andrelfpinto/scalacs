@@ -158,4 +158,21 @@ class SinglyLinkedListSuite extends munit.FunSuite {
     assertEquals(filteredList.extractHead(), 4)
     assert(filteredList.isEmpty)
   }
+
+  test("contains returns false for empty list") {
+    val list = new SinglyLinkedList[String]()
+    assert(!list.contains("apple"))
+  }
+
+  test("contains returns true for existing element") {
+    val list = new SinglyLinkedList[String]()
+    list.insertHead("apple")
+    assert(list.contains("apple"))
+  }
+
+  test("contains returns false for non-existent element in non-empty list") {
+    val list = new SinglyLinkedList[String]()
+    list.insertHead("apple")
+    assert(!list.contains("banana"))
+  }
 }
