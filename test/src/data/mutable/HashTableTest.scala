@@ -7,7 +7,7 @@ class HashTableSuite extends munit.FunSuite {
     assert(ht.isEmpty)
   }
 
-  test("put and get a single element") {
+  test("put and retrieve a single element") {
     val ht = new HashTable[Int, String]()
     ht.put(1, "apple")
     assertEquals(ht.getSize, 1)
@@ -16,7 +16,7 @@ class HashTableSuite extends munit.FunSuite {
     intercept[NoSuchElementException](ht.apply(2))
   }
 
-  test("put and get multiple elements") {
+  test("put and retrieve multiple elements") {
     val ht = new HashTable[String, Int]()
     ht.put("apple", 1)
     ht.put("banana", 2)
@@ -52,17 +52,17 @@ class HashTableSuite extends munit.FunSuite {
     assertEquals(ht.getSize, 2)
   }
 
-  test("get should throw NoSuchElementException if key is not found") {
+  test("apply should throw NoSuchElementException if key is not found") {
     val ht = new HashTable[String, Int]()
     ht.put("apple", 1)
     intercept[NoSuchElementException](ht.apply("banana"))
   }
 
-  test("get should throw NoSuchElementException if bucket is empty for the key") {
+  test("apply should throw NoSuchElementException if bucket is empty for the key") {
     val ht = new HashTable[Int, String](initialCapacity = 2)
     // Insert an element that will likely go into bucket 0 (e.g., key 2)
     ht.put(2, "two")
-    // Now try to get a key that will likely go into bucket 1 (e.g., key 1)
+    // Now try to retrieve a key that will likely go into bucket 1 (e.g., key 1)
     intercept[NoSuchElementException](ht.apply(1))
   }
 }
