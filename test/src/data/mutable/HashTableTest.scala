@@ -65,4 +65,16 @@ class HashTableSuite extends munit.FunSuite {
     // Now try to retrieve a key that will likely go into bucket 1 (e.g., key 1)
     intercept[NoSuchElementException](ht.apply(1))
   }
+
+  test("put and get multiple elements") {
+    val ht = new HashTable[String, Int]()
+    ht.put("apple", 1)
+    ht.put("banana", 2)
+    ht.put("cherry", 3)
+    assertEquals(ht.getSize, 3)
+    assertEquals(ht.get("apple"), Some(1))
+    assertEquals(ht.get("banana"), Some(2))
+    assertEquals(ht.get("cherry"), Some(3))
+    assertEquals(ht.get("date"), None)
+  }
 }
