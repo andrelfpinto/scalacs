@@ -1,5 +1,7 @@
 package scalacs.data.mutable
 
+import scalacs.data.mutable.HashTable.ops.given
+
 class HashTableSuite extends munit.FunSuite {
   test("empty hash table should have size 0 and be empty") {
     val ht = new HashTable[String, Int]()
@@ -76,5 +78,41 @@ class HashTableSuite extends munit.FunSuite {
     assertEquals(ht.get("banana"), Some(2))
     assertEquals(ht.get("cherry"), Some(3))
     assertEquals(ht.get("date"), None)
+  }
+
+  test("empty hash table should not contain any keys") {
+    val ht = new HashTable[String, Int]()
+    assert(!ht.contains("apple"))
+  }
+
+  test("contains returns true for existing key") {
+    val ht = new HashTable[String, Int]()
+    ht.put("apple", 1)
+    assert(ht.contains("apple"))
+  }
+
+  test("contains returns false for non-existent key in non-empty table") {
+    val ht = new HashTable[String, Int]()
+    ht.put("apple", 1)
+    assert(!ht.contains("banana"))
+  }
+
+  test("contains works correctly after multiple puts and collisions") {
+    val ht = new HashTable[Int, String](initialCapacity = 2)
+    ht.put(1, "one")
+    ht.put(3, "three")
+    ht.put(5, "five")
+    assert(ht.contains(1))
+    assert(ht.contains(3))
+    assert(ht.contains(5))
+    assert(!ht.contains(2))
+    assert(!ht.contains(4))
+  }
+
+  test("contains returns true after updating a key") {
+    val ht = new HashTable[String, Int]()
+    ht.put("apple", 1)
+    ht.put("apple", 10)
+    assert(ht.contains("apple"))
   }
 }

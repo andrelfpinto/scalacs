@@ -2,6 +2,7 @@ package scalacs.data.mutable
 
 import scalacs.data.mutable.SinglyLinkedList as List
 import scalacs.data.mutable.SinglyLinkedList.ops.given
+import ops.HasContains
 
 /** A hash table implementation using a fixed-size array and separate chaining for collision
   * resolution.
@@ -102,3 +103,12 @@ class HashTable[K, V](initialCapacity: Int = 16) {
       case None    => throw new NoSuchElementException(s"Key not found: $key")
     }
 }
+
+object HashTable:
+  object ops:
+    type HashTableKey[K] = HashTable[K, ?]
+
+    given HasContains[HashTableKey]:
+      extension [K](table: HashTableKey[K])
+        def contains(key: K): Boolean =
+          table.get(key).isDefined
